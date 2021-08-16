@@ -6,9 +6,23 @@ import reportWebVitals from './reportWebVitals';
 
 // 自定义的组件都必须要用大写字母开头，普通的 HTML 标签都用小写字母开头。
 class Title extends Component {
+
+  // 事件属性名都必须要用驼峰命名法
+  handleClickOnTitle (parameter, e) {
+    console.log(e.target.innerHTML)
+    console.log(this)
+    console.log(parameter)
+  }
+
   render () {
     return (
-      <h1>This is Title</h1>
+
+      // 这些 on* 的事件监听只能用在普通的 HTML 的标签上，而不能用在组件标签上
+      // 也就是说，<Header onClick={…} /> 这样的写法不会有什么效果的。
+
+      // 这种 bind 模式在 React.js 的事件监听当中非常常见
+      // bind 不仅可以帮我们把事件监听方法中的 this 绑定到当前组件实例上
+      <h1 onClick={this.handleClickOnTitle.bind(this, 'this is parameter')}>This is Title</h1>
     )
   }
 }
